@@ -271,28 +271,25 @@
          <section class="research-section" id="research">
 
   <style>
-    /* === 注入局部样式 (覆盖 style.css) === */
+    /* === 注入局部样式 (加强版：防止 style.css 干扰) === */
 
     /* 1. 基础布局容器 */
     .research-container {
       max-width: 900px !important;
       padding: 10px;
       margin: 0 auto;
-      position: relative;
+      position: relative !important; /* 强制定位基准 */
+      box-sizing: border-box; /* 防止 padding 撑大容器 */
     }
 
-    /* 2. 卡片样式优化 */
+    /* 2. 卡片样式 */
     .node-item {
-      /* 3px 渐变边框 */
       border: 3px solid transparent !important;
       border-radius: 18px;
       background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, #4facfe, #7928ca);
       background-origin: border-box;
       background-clip: padding-box, border-box;
-      
-      /* 柔和投影 */
       box-shadow: 0 10px 30px rgba(121, 40, 202, 0.08);
-      
       padding: 24px !important;
       display: flex;
       flex-direction: column;
@@ -300,16 +297,68 @@
       position: relative;
       z-index: 2;
       background-color: #fff;
+      text-align: left !important; /* 强制左对齐，覆盖全局 center */
     }
 
-    /* 3. 中心核心优化：完美居中 + 手机端适配 */
+    /* 3. 头部布局：Icon + Title */
+    .node-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      width: 100%;
+    }
+
+    /* Icon 容器 - 锁定尺寸 */
+    .node-item .service-icon-box {
+      margin: 0 !important; /* 覆盖 style.css 的 margin-bottom */
+      flex-shrink: 0;
+      width: 40px !important;
+      height: 40px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none !important; /* 防止 style.css 加背景 */
+      box-shadow: none !important; /* 防止 style.css 加阴影 */
+    }
+    
+    .node-item .service-icon-box img {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* 标题文字 - 锁定对齐 */
+    .service-item-title {
+      margin: 0 !important;
+      text-align: left !important; /* 关键：覆盖 style.css */
+      font-size: 1rem;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    /* 内容描述 - 锁定对齐 */
+    .service-content-box {
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: left !important; /* 关键：覆盖 style.css */
+      width: 100%;
+    }
+
+    .service-item-text {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.5;
+      margin: 0 !important;
+    }
+
+    /* 4. 中心核心 */
     .center-core {
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
-      justify-content: center !important; /* 垂直居中 */
+      justify-content: center !important;
       text-align: center;
-      
       width: 200px !important;
       height: 200px !important;
       border-radius: 50%;
@@ -317,28 +366,25 @@
       box-shadow: 0 15px 45px rgba(0,0,0,0.08) !important;
       position: relative;
       z-index: 10;
-      margin: 0 auto; /* 手机端自动居中 */
+      margin: 0 auto;
     }
 
-    /* 新增：内容包装器，确保图文作为一个整体居中 */
     .center-content-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transform: translateY(2px); /* 微调视觉重心 */
+      transform: translateY(2px);
     }
 
-    /* 4. 韦恩图 SVG */
     .venn-svg {
       width: 90px;
       height: 90px;
       overflow: visible;
-      margin-bottom: 8px; /* 图标与文字间距 */
+      margin-bottom: 8px;
       flex-shrink: 0;
     }
 
-    /* 5. 中心文字 */
     .center-text-group p {
       margin: 0;
       font-size: 0.7rem;
@@ -347,37 +393,37 @@
       letter-spacing: 0.5px;
       line-height: 1.3;
       text-transform: uppercase;
+      text-align: center !important;
     }
 
     /* 标题样式 */
     .research-title-wrapper {
       margin-bottom: 40px;
-      text-align: left;
+      text-align: left !important;
+      /* 字体颜色和大小会自动继承 style.css 的 .h3 设置，保持一致性 */
     }
 
     /* === 桌面端布局 (min-width: 900px) === */
     @media (min-width: 900px) {
       .research-container {
         display: grid;
-        /* 精确控制列宽：卡片280px，中间间距20px，中间圆圈240px空间 */
         grid-template-columns: 280px 240px 280px !important;
-        grid-template-rows: auto auto; /* 两行，高度自适应 */
+        grid-template-rows: auto auto;
         column-gap: 20px !important;
-        row-gap: 60px !important; /* 增加行间距以匹配连线 */
+        row-gap: 60px !important;
+        min-height: 500px;
         align-items: center;
         justify-content: center;
-        min-height: 480px;
       }
 
       .center-core {
         grid-column: 2;
-        grid-row: 1 / span 2; /* 跨两行居中 */
+        grid-row: 1 / span 2;
       }
 
-      /* 背景连线层：仅在桌面端显示 */
       .connection-layer {
         display: block;
-        position: absolute;
+        position: absolute !important;
         top: 0;
         left: 0;
         width: 100%;
@@ -394,19 +440,13 @@
         flex-direction: column;
         gap: 20px;
       }
-
-      /* 关键修改：利用 order 属性调整顺序 */
       .center-core {
-        order: -1; /* 让中心圆圈排在第一个 */
-        margin-bottom: 10px; /* 与下方卡片留出距离 */
+        order: -1;
+        margin-bottom: 10px;
       }
-
-      /* 移动端隐藏连线，保持清爽 */
       .connection-layer {
         display: none;
       }
-      
-      /* 移动端卡片宽度自适应 */
       .node-item {
         width: 100%;
       }
@@ -427,31 +467,18 @@
         </linearGradient>
       </defs>
       
-      <!-- 
-         连接线路径计算逻辑 (基于 900x500 画布):
-         左列卡片右侧边缘 x ≈ 290
-         右列卡片左侧边缘 x ≈ 610
-         中心圆圈连接点 x ≈ 350 (左) / 550 (右)
-         第一行卡片中心高度 y ≈ 110
-         第二行卡片中心高度 y ≈ 390
-         中心圆圈中心 y ≈ 250
-      -->
-      
-      <!-- 左上 -> 中 -->
-      <path d="M290 110 C 360 110, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
-      <!-- 右上 -> 中 -->
-      <path d="M610 110 C 540 110, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
-      <!-- 左下 -> 中 -->
-      <path d="M290 390 C 360 390, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
-      <!-- 右下 -> 中 -->
-      <path d="M610 390 C 540 390, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
+      <!-- 连接线路径 -->
+      <path d="M310 120 C 380 120, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
+      <path d="M590 120 C 520 120, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
+      <path d="M310 380 C 380 380, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
+      <path d="M590 380 C 520 380, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
     </svg>
 
     <!-- 1. Web3 -->
     <div class="node-item node-1">
       <div class="node-header">
         <div class="service-icon-box">
-          <img src="./assets/images/icon-web3.svg" alt="Web3 icon" width="40">
+          <img src="./assets/images/icon-web3.svg" alt="Web3 icon">
         </div>
         <h4 class="h4 service-item-title">Web3 & Digital Economies</h4>
       </div>
@@ -462,7 +489,7 @@
       </div>
     </div>
 
-    <!-- 2. Center: 韦恩图 (包含在 wrapper 中以整体居中) -->
+    <!-- 2. Center: 韦恩图 -->
     <div class="center-core">
       <div class="center-content-wrapper">
         <svg class="venn-svg" viewBox="0 0 100 100">
@@ -493,7 +520,7 @@
     <div class="node-item node-2">
       <div class="node-header">
         <div class="service-icon-box">
-          <img src="./assets/images/icon-design.svg" alt="Vis icon" width="40">
+          <img src="./assets/images/icon-design.svg" alt="Vis icon">
         </div>
         <h4 class="h4 service-item-title">Visual Analytics</h4>
       </div>
@@ -508,7 +535,7 @@
     <div class="node-item node-3">
       <div class="node-header">
         <div class="service-icon-box">
-          <img src="./assets/images/icon-network.svg" alt="HCI icon" width="40">
+          <img src="./assets/images/icon-network.svg" alt="HCI icon">
         </div>
         <h4 class="h4 service-item-title">HCI & Methodology</h4>
       </div>
@@ -523,7 +550,7 @@
     <div class="node-item node-4">
       <div class="node-header">
         <div class="service-icon-box">
-          <img src="./assets/images/icon-book.svg" alt="DH icon" width="40">
+          <img src="./assets/images/icon-book.svg" alt="DH icon">
         </div>
         <h4 class="h4 service-item-title">Digital Humanities</h4>
       </div>
