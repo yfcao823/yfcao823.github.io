@@ -2201,3 +2201,22 @@ textarea.form-input::-webkit-resizer { display: none; }
   
   .service-content-box { text-align: left; }
 }
+
+/* -----------------------------------*\
+  #ABOUT ME LIST FIX
+\*-----------------------------------*/
+
+.about-list {
+  list-style-type: disc !important; /* 强制显示实心圆点 */
+  margin-left: 20px;                /* 左侧缩进，留出圆点位置 */
+  margin-top: 15px;                 /* 列表顶部间距 */
+  margin-bottom: 15px;              /* 列表底部间距 */
+}
+
+.about-list li {
+  list-style-type: disc !important; /* 再次确保列表项显示圆点 */
+  display: list-item;               /* 确保它作为列表项显示 */
+  margin-bottom: 10px;              /* 每一项之间的间距 */
+  padding-left: 5px;                /* 圆点和文字之间的距离 */
+  line-height: 1.6;                 /* 保持良好的行高 */
+}
