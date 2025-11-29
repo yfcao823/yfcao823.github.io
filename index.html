@@ -269,40 +269,115 @@
           - research interest
         -->
 
-		<section class="research-section" id="research">
+         <section class="research-section" id="research">
+  
+  <!-- 
+    本次优化的专用样式 
+    (您可以直接保留在这里，它们会自动覆盖 style.css 中的旧设置，
+     这样您无需再去修改 style.css 文件，减少出错风险)
+  -->
+  <style>
+    /* 1. 布局更紧凑，比例接近 16:9 */
+    .research-container {
+      max-width: 900px !important; /* 缩小总宽 */
+      padding: 10px;
+    }
 
-  <h3 class="h3" style="margin-bottom: 40px;">My Research Interests</h3>
+    /* 2. 标题间距微调 */
+    .research-title-wrapper {
+      margin-bottom: 30px;
+      text-align: left; /* 保持左对齐 */
+    }
+
+    /* === 桌面端布局优化 === */
+    @media (min-width: 900px) {
+      .research-container {
+        /* 调整列宽：左右卡片固定宽 260px，中间留 280px 给韦恩图 */
+        grid-template-columns: 260px 280px 260px !important;
+        grid-template-rows: auto auto;
+        column-gap: 20px !important; /* 缩短横向间距 */
+        row-gap: 40px !important;    /* 缩短纵向间距 */
+        min-height: 450px !important; /* 减小总高度 */
+      }
+
+      /* 3. 卡片统一化设计 */
+      .node-item {
+        height: 150px; /* 固定高度，确保整齐 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* 内容垂直居中 */
+        padding: 20px 25px !important;
+        background: #fff;
+        border: 1px solid #e0e7ff; /* 极淡的边框 */
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* 轻微阴影 */
+      }
+      
+      /* 修复图标位置 */
+      .node-item .service-icon-box {
+        margin-bottom: 8px !important;
+        margin-top: 0 !important;
+      }
+      
+      /* 4. 取消文字缩进，节约版面 */
+      .service-content-box {
+        text-align: left;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+      }
+      
+      .service-item-text {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin: 0;
+        color: #666;
+      }
+
+      /* 5. 中心韦恩图容器优化 */
+      .center-core {
+        width: 240px !important;
+        height: 240px !important;
+        background: #fff;
+        /* 更加明显的蓝紫渐变阴影/描边效果 */
+        box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.8), 
+                    0 0 25px rgba(121, 40, 202, 0.25) !important;
+        border: 2px solid #f0f0f0;
+        z-index: 10;
+      }
+
+      /* 移除旧的旋转光圈动画，保持韦恩图的稳重感 */
+      .center-core::before { display: none; }
+    }
+  </style>
+
+  <!-- 标题：左对齐，无特殊颜色 -->
+  <h3 class="h3 research-title-wrapper">My Research Interests</h3>
 
   <div class="research-container">
 
-    <!-- 背景连接线 SVG (仅桌面显示) -->
-    <svg class="connection-layer" viewBox="0 0 1100 600" preserveAspectRatio="none">
+    <!-- 背景连接线 SVG (重新计算了路径，使其更短、更紧凑) -->
+    <svg class="connection-layer" viewBox="0 0 900 500" preserveAspectRatio="none">
       <defs>
-        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id="lineShort" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#4facfe" />
           <stop offset="100%" stop-color="#7928ca" />
         </linearGradient>
       </defs>
       
-      <path d="M320 150 C 450 150, 450 300, 550 300" stroke="url(#lineGradient)" stroke-width="3" fill="none" opacity="0.4" />
-      <path d="M780 150 C 650 150, 650 300, 550 300" stroke="url(#lineGradient)" stroke-width="3" fill="none" opacity="0.4" />
-      <path d="M320 450 C 450 450, 450 300, 550 300" stroke="url(#lineGradient)" stroke-width="3" fill="none" opacity="0.4" />
-      <path d="M780 450 C 650 450, 650 300, 550 300" stroke="url(#lineGradient)" stroke-width="3" fill="none" opacity="0.4" />
-
-      <!-- 动态光点 -->
-      <circle r="4" fill="#4facfe">
-        <animateMotion dur="4s" repeatCount="indefinite" path="M320 150 C 450 150, 450 300, 550 300" />
-      </circle>
-       <circle r="4" fill="#7928ca">
-        <animateMotion dur="4s" repeatCount="indefinite" path="M780 450 C 650 450, 650 300, 550 300" />
-      </circle>
+      <!-- 连接线路径：针对 900x500 的画布重新绘制 -->
+      <!-- 左上(200,100) -> 中(450,250) -->
+      <path d="M260 125 C 320 125, 350 250, 450 250" stroke="url(#lineShort)" stroke-width="2.5" fill="none" opacity="0.3" />
+      <!-- 右上(700,100) -> 中 -->
+      <path d="M640 125 C 580 125, 550 250, 450 250" stroke="url(#lineShort)" stroke-width="2.5" fill="none" opacity="0.3" />
+      <!-- 左下(200,400) -> 中 -->
+      <path d="M260 375 C 320 375, 350 250, 450 250" stroke="url(#lineShort)" stroke-width="2.5" fill="none" opacity="0.3" />
+      <!-- 右下(700,400) -> 中 -->
+      <path d="M640 375 C 580 375, 550 250, 450 250" stroke="url(#lineShort)" stroke-width="2.5" fill="none" opacity="0.3" />
     </svg>
 
     <!-- 1. Web3 -->
     <div class="node-item node-1">
       <div class="service-icon-box">
-        <!-- 务必确保 icon-web3.svg 已保存在 assets/images/ 文件夹中 -->
-        <img src="./assets/images/icon-web3.svg" alt="Web3 icon" width="45">
+        <img src="./assets/images/icon-web3.svg" alt="Web3 icon" width="40">
       </div>
       <div class="service-content-box">
         <h4 class="h4 service-item-title">Web3 & Digital Economies</h4>
@@ -312,31 +387,50 @@
       </div>
     </div>
 
-    <!-- 2. Center Core -->
+    <!-- 2. Center: 4-Element Venn Diagram (韦恩图) -->
     <div class="center-core">
-      <svg class="center-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 韦恩图 SVG -->
+      <svg width="160" height="160" viewBox="0 0 100 100" style="overflow: visible; margin-top: -20px;">
         <defs>
-          <linearGradient id="centerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#4facfe" />
-            <stop offset="100%" stop-color="#7928ca" />
+          <linearGradient id="vennGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4facfe" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#7928ca" stop-opacity="0.6"/>
           </linearGradient>
         </defs>
-        <circle cx="32" cy="24" r="14" stroke="url(#centerGrad)" stroke-width="4" opacity="0.9"/>
-        <circle cx="22" cy="42" r="14" stroke="url(#centerGrad)" stroke-width="4" opacity="0.9"/>
-        <circle cx="42" cy="42" r="14" stroke="url(#centerGrad)" stroke-width="4" opacity="0.9"/>
-        <circle cx="32" cy="36" r="4" fill="url(#centerGrad)" />
+        <!-- 四个交叠的圆 -->
+        <!-- 上左 -->
+        <circle cx="35" cy="35" r="25" fill="none" stroke="url(#vennGrad)" stroke-width="2" />
+        <!-- 上右 -->
+        <circle cx="65" cy="35" r="25" fill="none" stroke="url(#vennGrad)" stroke-width="2" />
+        <!-- 下左 -->
+        <circle cx="35" cy="65" r="25" fill="none" stroke="url(#vennGrad)" stroke-width="2" />
+        <!-- 下右 -->
+        <circle cx="65" cy="65" r="25" fill="none" stroke="url(#vennGrad)" stroke-width="2" />
+        
+        <!-- 中心交汇点 -->
+        <circle cx="50" cy="50" r="4" fill="#7928ca" opacity="0.8" />
       </svg>
 
-      <h4 style="font-size: 1.1rem; margin: 0; font-weight: 800; color: #333;">Research<br>Nucleus</h4>
-      <p style="font-size: 0.75rem; margin-top: 8px; color: #555; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-        Data Science <span style="color: #7928ca;">×</span><br>Social Computing
-      </p>
+      <!-- 文字在韦恩图中线正下方 -->
+      <div style="margin-top: 5px; text-align: center;">
+        <p style="
+            font-size: 0.7rem; 
+            font-weight: 700; 
+            color: #4a5568; 
+            letter-spacing: 0.5px; 
+            line-height: 1.4;
+            text-transform: uppercase;">
+          Data Science<br>
+          <span style="color: #7928ca; font-size: 0.9rem;">×</span><br>
+          Social Computing
+        </p>
+      </div>
     </div>
 
     <!-- 3. Visual Analytics -->
     <div class="node-item node-2">
       <div class="service-icon-box">
-        <img src="./assets/images/icon-design.svg" alt="Vis icon" width="45">
+        <img src="./assets/images/icon-design.svg" alt="Vis icon" width="40">
       </div>
       <div class="service-content-box">
         <h4 class="h4 service-item-title">Visual Analytics</h4>
@@ -349,7 +443,7 @@
     <!-- 4. HCI -->
     <div class="node-item node-3">
       <div class="service-icon-box">
-        <img src="./assets/images/icon-network.svg" alt="HCI icon" width="45">
+        <img src="./assets/images/icon-network.svg" alt="HCI icon" width="40">
       </div>
       <div class="service-content-box">
         <h4 class="h4 service-item-title">HCI & Methodology</h4>
@@ -362,7 +456,7 @@
     <!-- 5. Digital Humanities -->
     <div class="node-item node-4">
       <div class="service-icon-box">
-        <img src="./assets/images/icon-book.svg" alt="DH icon" width="45">
+        <img src="./assets/images/icon-book.svg" alt="DH icon" width="40">
       </div>
       <div class="service-content-box">
         <h4 class="h4 service-item-title">Digital Humanities</h4>
