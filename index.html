@@ -271,7 +271,86 @@
 
          <section class="research-section" id="research">
 
-  <!-- 标题：左对齐，无特殊颜色，底部留出间距 -->
+  <style>
+    /* === 注入局部样式 (覆盖 style.css) === */
+
+    /* 1. 卡片样式优化：加粗边框 + 柔和光晕 */
+    .node-item {
+      /* 核心修改：边框改为 3px */
+      border: 3px solid transparent !important;
+      border-radius: 18px; /* 稍微加大圆角 */
+      
+      /* 渐变边框逻辑保持不变 */
+      background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, #4facfe, #7928ca);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      
+      /* 新增：蓝紫色系的柔和投影，提升质感 */
+      box-shadow: 0 10px 30px rgba(121, 40, 202, 0.08);
+      
+      padding: 24px !important; /* 增加一点内边距让内容呼吸感更强 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* 鼠标悬停时的微交互（可选） */
+    .node-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(121, 40, 202, 0.12);
+    }
+
+    /* 2. 中心核心优化：防止溢出，完美居中 */
+    .center-core {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center;
+      
+      width: 200px !important;
+      height: 200px !important;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.08) !important;
+      position: relative;
+      z-index: 10;
+      
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+
+    /* 3. 韦恩图 SVG 尺寸微调 */
+    .venn-svg {
+      width: 100px;
+      height: 100px;
+      overflow: visible;
+      margin-bottom: 5px;
+      flex-shrink: 0;
+    }
+
+    /* 4. 中心文字样式 */
+    .center-text-group p {
+      margin: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #4a5568;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    /* 标题样式补丁 */
+    .research-title-wrapper {
+      margin-bottom: 40px;
+      text-align: left;
+    }
+  </style>
+
+  <!-- 标题 -->
   <h3 class="h3 research-title-wrapper">My Research Interests</h3>
 
   <div class="research-container">
@@ -285,23 +364,21 @@
         </linearGradient>
       </defs>
       
-      <!-- 连接线路径：已加粗 (stroke-width="4") -->
-      <path d="M280 120 C 350 120, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
-      <path d="M620 120 C 550 120, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
-      <path d="M280 380 C 350 380, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
-      <path d="M620 380 C 550 380, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
+      <!-- 连接线路径：保持居中对齐 (Y坐标 140/360) -->
+      <path d="M280 140 C 350 140, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
+      <path d="M620 140 C 550 140, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
+      <path d="M280 360 C 350 360, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
+      <path d="M620 360 C 550 360, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
     </svg>
 
     <!-- 1. Web3 -->
     <div class="node-item node-1">
-      <!-- 头部：图标 + 标题同行 -->
       <div class="node-header">
         <div class="service-icon-box">
           <img src="./assets/images/icon-web3.svg" alt="Web3 icon" width="40">
         </div>
         <h4 class="h4 service-item-title">Web3 & Digital Economies</h4>
       </div>
-      <!-- 内容描述 -->
       <div class="service-content-box">
         <p class="service-item-text">
           Decentralized communities & trust formation.
@@ -309,33 +386,26 @@
       </div>
     </div>
 
-    <!-- 2. Center: 韦恩图 (白色背景，无外圈) -->
+    <!-- 2. Center: 韦恩图 (白色背景) -->
     <div class="center-core">
-      <svg width="140" height="140" viewBox="0 0 100 100" style="overflow: visible; margin-top: -10px;">
+      <svg class="venn-svg" viewBox="0 0 100 100">
         <defs>
-          <linearGradient id="vennGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="vennGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#4facfe" stop-opacity="0.6"/>
             <stop offset="100%" stop-color="#7928ca" stop-opacity="0.6"/>
           </linearGradient>
         </defs>
         <!-- 四个交叠圆 -->
-        <circle cx="35" cy="35" r="28" fill="none" stroke="url(#vennGrad2)" stroke-width="2" />
-        <circle cx="65" cy="35" r="28" fill="none" stroke="url(#vennGrad2)" stroke-width="2" />
-        <circle cx="35" cy="65" r="28" fill="none" stroke="url(#vennGrad2)" stroke-width="2" />
-        <circle cx="65" cy="65" r="28" fill="none" stroke="url(#vennGrad2)" stroke-width="2" />
+        <circle cx="35" cy="35" r="28" fill="none" stroke="url(#vennGrad3)" stroke-width="2" />
+        <circle cx="65" cy="35" r="28" fill="none" stroke="url(#vennGrad3)" stroke-width="2" />
+        <circle cx="35" cy="65" r="28" fill="none" stroke="url(#vennGrad3)" stroke-width="2" />
+        <circle cx="65" cy="65" r="28" fill="none" stroke="url(#vennGrad3)" stroke-width="2" />
         <!-- 核心点 -->
         <circle cx="50" cy="50" r="5" fill="#7928ca" opacity="0.8" />
       </svg>
 
-      <!-- 中心文字 -->
-      <div style="margin-top: 5px; text-align: center;">
-        <p style="
-            font-size: 0.7rem; 
-            font-weight: 700; 
-            color: #4a5568; 
-            letter-spacing: 0.5px; 
-            line-height: 1.4;
-            text-transform: uppercase;">
+      <div class="center-text-group">
+        <p>
           Data Science<br>
           <span style="color: #7928ca; font-size: 0.9rem;">×</span><br>
           Social Computing
