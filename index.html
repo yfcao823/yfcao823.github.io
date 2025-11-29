@@ -271,15 +271,15 @@
          <section class="research-section" id="research">
 
   <style>
-    /* === 注入局部样式 (加强版：防止 style.css 干扰) === */
+    /* === 注入局部样式 V7 (防变形固定版) === */
 
-    /* 1. 基础布局容器 */
-    /* 关键修复：position: relative 确保连线不会飞到屏幕外面 */
+    /* 1. 基础容器 */
     .research-container {
       max-width: 900px !important;
       padding: 10px;
       margin: 0 auto;
-      position: relative !important; 
+      /* 确保容器有足够高度容纳固定尺寸的连线图 */
+      min-height: 500px; 
       box-sizing: border-box;
     }
 
@@ -287,7 +287,6 @@
     .node-item {
       border: 3px solid transparent !important;
       border-radius: 18px;
-      /* 蓝紫渐变边框 */
       background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, #4facfe, #7928ca);
       background-origin: border-box;
       background-clip: padding-box, border-box;
@@ -297,12 +296,12 @@
       flex-direction: column;
       justify-content: center;
       position: relative;
-      z-index: 2;
+      z-index: 2; /* 保证卡片浮在连线上方 */
       background-color: #fff;
       text-align: left !important;
     }
 
-    /* 3. 头部布局：Icon + Title */
+    /* 头部布局 */
     .node-header {
       display: flex;
       align-items: center;
@@ -311,7 +310,7 @@
       width: 100%;
     }
 
-    /* Icon 容器 - 锁定尺寸，防止变形 */
+    /* Icon */
     .node-item .service-icon-box {
       margin: 0 !important;
       flex-shrink: 0;
@@ -330,7 +329,7 @@
         margin: 0 !important;
     }
 
-    /* 标题文字 */
+    /* 标题 */
     .service-item-title {
       margin: 0 !important;
       text-align: left !important;
@@ -339,7 +338,7 @@
       font-weight: 700;
     }
 
-    /* 内容描述 */
+    /* 内容 */
     .service-content-box {
       margin: 0 !important;
       padding: 0 !important;
@@ -404,7 +403,7 @@
       text-align: left !important;
     }
 
-    /* === 桌面端布局 (min-width: 900px) === */
+    /* === 桌面端布局 === */
     @media (min-width: 900px) {
       .research-container {
         display: grid;
@@ -412,7 +411,6 @@
         grid-template-rows: auto auto;
         column-gap: 20px !important;
         row-gap: 60px !important;
-        min-height: 500px;
         align-items: center;
         justify-content: center;
       }
@@ -422,20 +420,21 @@
         grid-row: 1 / span 2;
       }
 
-      /* 连线层：绝对定位 + 充满容器 */
+      /* 关键修改：固定大小并居中，防止拉伸变形 */
       .connection-layer {
         display: block;
         position: absolute !important;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        width: 900px !important; /* 锁死宽度 */
+        height: 500px !important; /* 锁死高度 */
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important; /* 完美居中 */
         z-index: 0;
         pointer-events: none;
       }
     }
 
-    /* === 移动端布局 (max-width: 899px) === */
+    /* === 移动端布局 === */
     @media (max-width: 899px) {
       .research-container {
         display: flex;
@@ -458,10 +457,12 @@
   <!-- 标题 -->
   <h3 class="h3 research-title-wrapper">My Research Interests</h3>
 
-  <div class="research-container">
+  <!-- 强制加上 position: relative !important 防止外部干扰 -->
+  <div class="research-container" style="position: relative !important;">
 
     <!-- 背景连接线 SVG -->
-    <svg class="connection-layer" viewBox="0 0 900 500" preserveAspectRatio="none">
+    <!-- 去掉了 preserveAspectRatio="none"，使用固定尺寸 900x500 -->
+    <svg class="connection-layer" viewBox="0 0 900 500">
       <defs>
         <linearGradient id="lineBold" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#4facfe" />
@@ -469,7 +470,7 @@
         </linearGradient>
       </defs>
       
-      <!-- 连接线路径：精确对齐卡片侧边中点 -->
+      <!-- 路径保持不变，因为画布尺寸已锁定 -->
       <path d="M310 120 C 380 120, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
       <path d="M590 120 C 520 120, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
       <path d="M310 380 C 380 380, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
@@ -565,7 +566,7 @@
 
   </div>
 </section>
-
+		  
         <!--
           - testimonials
         -->
