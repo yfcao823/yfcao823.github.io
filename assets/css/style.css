@@ -2014,3 +2014,190 @@ textarea.form-input::-webkit-resizer { display: none; }
   .timeline-text { max-width: 700px; }
 
 }
+
+/* -----------------------------------*\
+  #RESEARCH SECTION (NEW)
+\*-----------------------------------*/
+
+/* 1. 定义新模块专用的局部变量，不会污染全局 */
+.research-section {
+  --grad-start: #4facfe; /* 亮蓝 */
+  --grad-end: #7928ca;   /* 深紫 */
+  --line-color: #e0e7ff; /* 浅淡的连接线底色 */
+  
+  padding-block: 50px;
+  position: relative;
+  overflow: hidden;
+  /* 不设置背景色或字体，使其继承您网站 style.css 的全局设置 */
+}
+
+/* 2. 标题样式适配 */
+.research-title {
+  text-align: center;
+  margin-bottom: 60px;
+  /* 继承 style.css 中的 .h2 或 .h3 样式，这里只做微调 */
+  font-weight: 700; 
+  /* color: var(--white-2);  如果您网站是深色模式，请取消注释这行 */
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* 3. 布局容器 */
+.research-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  padding: 10px;
+  z-index: 1;
+}
+
+/* === 桌面端布局 (大屏) === */
+@media (min-width: 900px) {
+  .research-container {
+    grid-template-columns: 1fr 280px 1fr;
+    grid-template-rows: auto auto; 
+    align-items: center;
+    justify-items: center;
+    min-height: 500px;
+    column-gap: 50px;
+    row-gap: 70px;
+  }
+
+  /* 背景连接线层 */
+  .connection-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* 中心核心 (Nucleus) */
+  .center-core {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: var(--eerie-black-1, #fff); /* 使用您 style.css 的变量作为背景 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(79, 172, 254, 0.15); 
+    border: 4px solid var(--eerie-black-1, #fff);
+  }
+  
+  .center-core::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+  }
+
+  .center-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 12px;
+  }
+
+  /* 卡片样式 */
+  .node-item {
+    background: var(--eerie-black-2, #fff); /* 适配原有背景变量 */
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-2); /* 使用原有阴影变量 */
+    max-width: 340px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--jet); /* 使用原有边框颜色 */
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* ⚠️ 关键修正：覆盖 style.css 中 .service-icon-box 的 margin-bottom */
+  .node-item .service-icon-box {
+    margin-bottom: 0 !important;
+    margin-top: 5px; /* 微调对齐 */
+    min-width: 45px;
+  }
+
+  /* 卡片顶部渐变条 */
+  .node-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--grad-start), var(--grad-end));
+    opacity: 0.8;
+  }
+
+  .node-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  }
+
+  /* 网格定位 */
+  .node-1 { grid-column: 1; grid-row: 1; justify-self: end; }
+  .node-2 { grid-column: 3; grid-row: 1; justify-self: start; }
+  .node-3 { grid-column: 1; grid-row: 2; justify-self: end; }
+  .node-4 { grid-column: 3; grid-row: 2; justify-self: start; }
+  
+  .service-content-box { text-align: left; }
+}
+
+/* === 移动端适配 === */
+@media (max-width: 899px) {
+  .center-core, .connection-layer { display: none; }
+  
+  .node-item { 
+    display: flex; 
+    gap: 15px; 
+    align-items: center;
+    background: var(--border-gradient-onyx); /* 保持与原有 service-item 风格一致 */
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: var(--shadow-2);
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 移动端保留原来的一点渐变背景风格 */
+  .node-item::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: var(--bg-gradient-jet); /* 适配原有深色/浅色模式背景 */
+    border-radius: inherit;
+    z-index: -1;
+  }
+  
+  .node-item .service-icon-box {
+     margin-bottom: 0 !important;
+  }
+  
+  .service-content-box { text-align: left; }
+}
