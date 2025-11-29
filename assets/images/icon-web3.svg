@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- 蓝紫渐变定义：参考了截图中的色调倾向 -->
+    <linearGradient id="web3-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" /> <!-- 亮蓝 -->
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" /> <!-- 深紫 -->
+    </linearGradient>
+  </defs>
+  
+  <style>
+    .st0 {
+      fill: none;
+      stroke: url(#web3-gradient);
+      stroke-width: 2.5; /* 匹配截图中图标的线条粗细 */
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10;
+    }
+    .st1 {
+      fill: url(#web3-gradient);
+    }
+    /* 增加一点微弱的背景光晕，增加层次感 */
+    .bg-glow {
+      fill: url(#web3-gradient);
+      opacity: 0.05;
+    }
+  </style>
+
+  <!-- 背景装饰（可选，增强体积感） -->
+  <path class="bg-glow" d="M32,8 L56,22 L56,48 L32,62 L8,48 L8,22 Z" />
+
+  <!-- 主体结构：六边形区块 (Block) -->
+  <path class="st0" d="M32,8 L54,21 L54,47 L32,60 L10,47 L10,21 Z" />
+  
+  <!-- 内部立方体/连接 (Network Structure) -->
+  <path class="st0" d="M32,60 L32,34" />
+  <path class="st0" d="M54,21 L32,34" />
+  <path class="st0" d="M10,21 L32,34" />
+  
+  <!-- 核心节点 (Token/Node) -->
+  <circle class="st1" cx="32" cy="34" r="3.5" />
+  
+  <!-- 外部卫星节点 (Decentralization) -->
+  <circle class="st0" cx="32" cy="8" r="2" fill="#fff" />
+  <circle class="st0" cx="10" cy="47" r="2" fill="#fff" />
+  <circle class="st0" cx="54" cy="47" r="2" fill="#fff" />
+
+</svg>
