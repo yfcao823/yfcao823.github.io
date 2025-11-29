@@ -274,18 +274,20 @@
     /* === 注入局部样式 (加强版：防止 style.css 干扰) === */
 
     /* 1. 基础布局容器 */
+    /* 关键修复：position: relative 确保连线不会飞到屏幕外面 */
     .research-container {
       max-width: 900px !important;
       padding: 10px;
       margin: 0 auto;
-      position: relative !important; /* 强制定位基准 */
-      box-sizing: border-box; /* 防止 padding 撑大容器 */
+      position: relative !important; 
+      box-sizing: border-box;
     }
 
     /* 2. 卡片样式 */
     .node-item {
       border: 3px solid transparent !important;
       border-radius: 18px;
+      /* 蓝紫渐变边框 */
       background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, #4facfe, #7928ca);
       background-origin: border-box;
       background-clip: padding-box, border-box;
@@ -297,7 +299,7 @@
       position: relative;
       z-index: 2;
       background-color: #fff;
-      text-align: left !important; /* 强制左对齐，覆盖全局 center */
+      text-align: left !important;
     }
 
     /* 3. 头部布局：Icon + Title */
@@ -309,17 +311,17 @@
       width: 100%;
     }
 
-    /* Icon 容器 - 锁定尺寸 */
+    /* Icon 容器 - 锁定尺寸，防止变形 */
     .node-item .service-icon-box {
-      margin: 0 !important; /* 覆盖 style.css 的 margin-bottom */
+      margin: 0 !important;
       flex-shrink: 0;
       width: 40px !important;
       height: 40px !important;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: none !important; /* 防止 style.css 加背景 */
-      box-shadow: none !important; /* 防止 style.css 加阴影 */
+      background: none !important;
+      box-shadow: none !important;
     }
     
     .node-item .service-icon-box img {
@@ -328,20 +330,20 @@
         margin: 0 !important;
     }
 
-    /* 标题文字 - 锁定对齐 */
+    /* 标题文字 */
     .service-item-title {
       margin: 0 !important;
-      text-align: left !important; /* 关键：覆盖 style.css */
+      text-align: left !important;
       font-size: 1rem;
       line-height: 1.3;
       font-weight: 700;
     }
 
-    /* 内容描述 - 锁定对齐 */
+    /* 内容描述 */
     .service-content-box {
       margin: 0 !important;
       padding: 0 !important;
-      text-align: left !important; /* 关键：覆盖 style.css */
+      text-align: left !important;
       width: 100%;
     }
 
@@ -400,7 +402,6 @@
     .research-title-wrapper {
       margin-bottom: 40px;
       text-align: left !important;
-      /* 字体颜色和大小会自动继承 style.css 的 .h3 设置，保持一致性 */
     }
 
     /* === 桌面端布局 (min-width: 900px) === */
@@ -421,6 +422,7 @@
         grid-row: 1 / span 2;
       }
 
+      /* 连线层：绝对定位 + 充满容器 */
       .connection-layer {
         display: block;
         position: absolute !important;
@@ -467,7 +469,7 @@
         </linearGradient>
       </defs>
       
-      <!-- 连接线路径 -->
+      <!-- 连接线路径：精确对齐卡片侧边中点 -->
       <path d="M310 120 C 380 120, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
       <path d="M590 120 C 520 120, 520 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
       <path d="M310 380 C 380 380, 380 250, 450 250" stroke="url(#lineBold)" stroke-width="4" fill="none" opacity="0.3" />
